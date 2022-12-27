@@ -3,7 +3,6 @@
 Set virtual environment using `pipenv`:
 ```
 pipenv install
-pipenv shell
 ```
 
 run server on localhost
