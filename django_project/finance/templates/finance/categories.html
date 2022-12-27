@@ -1,0 +1,17 @@
+{% extends "organizer/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% for category in categories %}
+        <div class="media" >
+            <a href="#" >
+                <img class="rounded-circle account-img" src="{{ category.image.url }}" >
+            </a>
+            <div class="media-body">
+                <h2 class="mt-5"><a href="#" class="article-title " > {{ category.title }}</a></h2>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends "organizer/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<a href="{% url 'finance-new-transaction' %}">
+    <button type="button" class="btn btn-primary">New Transaction</button>
+</a>
+<a href="{% url 'finance-filter' %}">
+    <button type="button" class="btn btn-primary">Filter</button>
+</a>
+
+{% if categories %}
+    <h4 class="article-title" >Transaction from {{start_date|date:"F d, Y"}} to {{end_date|date:"F d, Y"}}</h4>
+    <h5 class="article-title" >Categories: {{categories}}</h5>
+{% endif %}
+
+{% if chart_income %}
+    <div>
+        <div class="row">
+            <div class="col-lg-6 col-md-24 col-xs-12 thumb">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive" src="data:image/png;base64, {{chart_income|safe}}" alt="">
+                </a>
+            </div>
+            <div class="col-lg-6 col-md-24 col-xs-12 thumb">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive" src="data:image/png;base64, {{chart_outcome|safe}}" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if monthly_chart %}
+    <div class="row d-flex justify-content-center" >
+        <div class="col-lg-24 col-md-24 col-xs-24 thumb">
+            <a class="thumbnail" href="#">
+                <img class="img-responsive" src="data:image/png;base64, {{monthly_chart|safe}}" alt="">
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+
+    <ul class="list-group  mx-auto">
+    {% for transaction in transactions %}
+        <div class="list-group-item mb-0 mt-0 justify-content-center">
+            <span class="d-inline-flex align-items-center justify-content-center text-white rounded-circle m-2 me-2" style=" width: 50px; height: 40px;">
+<!--                <i class="far fa-pencil"></i>-->
+                <img class="h-100 pt-1 m1-2 mb-0 account-img" src="{{ transaction.category.image.url }}" >
+            </span>
+        {% if transaction.category.type == '+' %}
+            <span class="badge badge-success badge-pill"> + {{transaction.abs_balance_change}} UAH</span>
+        {% else %}
+            <span class="badge badge-danger badge-pill"> - {{transaction.abs_balance_change}} UAH</span>
+        {% endif %}
+        {{ transaction.date|date:"F d, Y h:m" }} | <a href="{% url 'transaction-detail' transaction.id %}" >{{ transaction.title }}</a>
+        </div>
+    {% endfor %}
+    </ul>
+
+
+{% endblock content %}
