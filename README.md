@@ -14,3 +14,9 @@ Use the Organizer in browser
 ```
 http://127.0.0.1:8000/
 ```
+
+Create a new account or get acces to superuser 
+```
+login: Admin
+password: testing321
+```
