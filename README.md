@@ -3,6 +3,7 @@
 Set virtual environment using `pipenv`:
 ```
 pipenv install
+pipenv install tzdata
 ```
 
 run server on localhost
